@@ -9,7 +9,7 @@
     </q-layout-header>
     <q-page-container>
       <q-page>
-        <q-input v-model="text" inverted color="secondary"/>
+        <q-input v-model="steemUsername" inverted color="secondary"/>
         <div align="center" class="q-pt-md">
         <q-btn label = "Click" @click="checkName">
         </q-btn>
@@ -24,17 +24,17 @@ export default {
   name: 'MyLayout',
   data () {
     return {
-      text: ''
+      steemUsername: ''
     }
   },
   methods: {
     checkName: async function () {
       console.log('working!- ')
-      if (this.text === '') {
+      if (this.steemUsername === '') {
         this.$q.notify('Please Enter A Value')
         return
       }
-      let accounts = await this.$steemClient.database.getAccounts([this.text])
+      let accounts = await this.$steemClient.database.getAccounts([this.steemUsername])
       console.log(accounts)
       this.$q.notify(accounts[0].balance)
     }
