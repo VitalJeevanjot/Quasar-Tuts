@@ -2,6 +2,7 @@
   <q-layout>
     <q-layout-header class="shadow-4">
       <q-toolbar :inverted="$q.theme==='ios'" align="center">
+          <q-toolbar-title>
             Steem App
           </q-toolbar-title>
       </q-toolbar>
