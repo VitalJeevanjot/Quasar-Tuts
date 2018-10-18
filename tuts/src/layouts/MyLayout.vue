@@ -1,25 +1,42 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-
+  <q-layout>
+    <q-layout-header class="shadow-4">
+      <q-toolbar :inverted="$q.theme==='ios'" align="center">
+            Steem App
+          </q-toolbar-title>
+      </q-toolbar>
+    </q-layout-header>
     <q-page-container>
       <q-page>
+        <q-input v-model="text" inverted color="secondary"/>
+        <div align="center" class="q-pt-md">
+        <q-btn label = "Click" @click="checkName">
+        </q-btn>
+        </div>
       </q-page>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import { openURL } from 'quasar'
-
 export default {
   name: 'MyLayout',
   data () {
     return {
-      leftDrawerOpen: this.$q.platform.is.desktop
+      text: ''
     }
   },
   methods: {
-    openURL
+    checkName: async function () {
+      console.log('working!- ')
+      if (this.text === '') {
+        this.$q.notify('Please Enter A Value')
+        return
+      }
+      let accounts = await this.$steemClient.database.getAccounts([this.text])
+      console.log(accounts)
+      this.$q.notify(accounts[0].balance)
+    }
   }
 }
 </script>
